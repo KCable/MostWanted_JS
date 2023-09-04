@@ -65,7 +65,7 @@ function searchByName(people) {
 
 function searchByTraits(people) {
     const traitsToSearchForString = prompt('Please enter the the trait of the person you are searching for.\nAcceptable answers are:\ngender\ndate of birth\nheight\nweight\neye color\noccupation');
-    switch (mainMenuUserActionChoice) {
+    switch (traitsToSearchForString) {
         case "gender":
             const genderToSearchForString = prompt('Please enter the the gender of the person you are searching for.\nAcceptable answers are:\nmale \n female');
             let traitsSearchResults = people.filter(person => (person.gender.toLowerCase() === genderToSearchForString.toLowerCase() ));
@@ -86,20 +86,20 @@ function searchByTraits(people) {
             traitsSearchResults = people.filter(person => (person.weight.toLowerCase() === weightToSearchForString.toLowerCase() ));
             return traitsSearchResults;
          
-        case "eyeColor":
-            const eyeColorToSearchForString = prompt('Please enter the the gender of the person you are searching for.\nAcceptable answers are:\nmale \n female');
+        case "eye color":
+            const eyeColorToSearchForString = prompt('Please enter the the eye color of the person you are searching for.\nAcceptable answers are:\nbrown\nblue\nblack\ngreen\nhazel\n');
             traitsSearchResults = people.filter(person => (person.eyeColor.toLowerCase() === eyeColorToSearchForString.toLowerCase() ));
             return traitsSearchResults;
 
         case "occupation":
-            const occupationToSearchForString = prompt('Please enter the the gender of the person you are searching for.\nAcceptable answers are:\nmale \n female');
+            const occupationToSearchForString = prompt('Please enter the the occupation of the person you are searching for.\nAcceptable answers are:\ndoctor\nassistant\npolitician\nnurse\nlandscaper\nprogrammer\narchitect\nstudent ');
             traitsSearchResults = people.filter(person => (person.occupation.toLowerCase() === occupationToSearchForString.toLowerCase() ));
             return traitsSearchResults;
         
             
         default:
             alert('Invalid input. Please try again.');
-    }
+    }}
 
     
     
