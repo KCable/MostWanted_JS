@@ -63,17 +63,23 @@ function searchByName(people) {
     return fullNameSearchResults;
 }
 
+function displayInfo() {
+    let results = ['data'];
+    return results
+}
+
 function searchByTraits(people) {
     const traitsToSearchForString = prompt('Please enter the the trait of the person you are searching for.\nAcceptable answers are:\ngender\ndate of birth\nheight\nweight\neye color\noccupation');
     switch (traitsToSearchForString) {
+
         case "gender":
-            const genderToSearchForString = prompt('Please enter the the gender of the person you are searching for.\nAcceptable answers are:\nmale \n female');
-            let traitsSearchResults = people.filter(person => (person.gender.toLowerCase() === genderToSearchForString.toLowerCase() ));
+            const genderToSearchForString = prompt('Please enter the the gender of the person you are searching for.\nAcceptable answers are:\nmale \nfemale');
+            let traitsSearchResults = people.filter(person => (person.gender.toLowerCase() === genderToSearchForString.toLowerCase()));
             return traitsSearchResults;
 
         case "dob":
             const dobToSearchForString = prompt('Please enter the the date of birth of the person you are searching for.\nPlease enter MM/DD/YYYY');
-            traitsSearchResults = people.filter(person => (person.dob.toLowerCase() === dobToSearchForString.toLowerCase() ));
+            traitsSearchResults = people.filter(person => (person.dob.toLowerCase() === dobToSearchForString.toLowerCase()));
             return traitsSearchResults;
             
         case "height":
@@ -83,17 +89,17 @@ function searchByTraits(people) {
          
         case "weight":
             const weightToSearchForString = prompt('Please enter the the weight of the person you are searching for.\nPlease enter weight in pounds.');
-            traitsSearchResults = people.filter(person => (person.weight.toLowerCase() === weightToSearchForString.toLowerCase() ));
+            traitsSearchResults = people.filter(person => (person.weight.toLowerCase() === weightToSearchForString.toLowerCase()));
             return traitsSearchResults;
          
         case "eye color":
             const eyeColorToSearchForString = prompt('Please enter the the eye color of the person you are searching for.\nAcceptable answers are:\nbrown\nblue\nblack\ngreen\nhazel\n');
-            traitsSearchResults = people.filter(person => (person.eyeColor.toLowerCase() === eyeColorToSearchForString.toLowerCase() ));
+            traitsSearchResults = people.filter(person => (person.eyeColor.toLowerCase() === eyeColorToSearchForString.toLowerCase()));
             return traitsSearchResults;
 
         case "occupation":
             const occupationToSearchForString = prompt('Please enter the the occupation of the person you are searching for.\nAcceptable answers are:\ndoctor\nassistant\npolitician\nnurse\nlandscaper\nprogrammer\narchitect\nstudent ');
-            traitsSearchResults = people.filter(person => (person.occupation.toLowerCase() === occupationToSearchForString.toLowerCase() ));
+            traitsSearchResults = people.filter(person => (person.occupation.toLowerCase() === occupationToSearchForString.toLowerCase()));
             return traitsSearchResults;
         
             
@@ -101,32 +107,72 @@ function searchByTraits(people) {
             alert('Invalid input. Please try again.');
     }}
 
-    
-    
-    
-  
 
+    function displayFamily(obj, array = []){
 
-/*
-   // if (traitsToSearchForString.includes("male" || "female")){
-        if (traitsToSearchForString.includes("male")){genderToSearchFor = "male"} 
-    else {genderToSearchFor = "female";
-   }}
-
+        let personFamily = data.family;
+        array = [obj];
+        switch (searchTypeChoice) {
+            case 'parent':
+                if (data = parents) {
+                    return array;
+                break; 
+                }
+            results = searchByParents(data.parents);
+                break;
+            case 'spouse':
+                if (data = currentSpouse) {
+                    return array;                    
+                }
+                results = searchByCurrentSpouse(data.currentSpouse);
+                break;
+            default:
+                return personFamily(parents, currentSpouse);
+        }
     
-    let dobToSearchFor = ""
-    person.dob.toLowerCase() === dobToSearchFor.toLowerCase() 
-
-
-    //person.height.toLowerCase() === heightToSearchFor.toLowerCase() 
-    //person.weight.toLowerCase() === weightToSearchFor.toLowerCase() 
-    //person.eyeColor.toLowerCase() === eyeColorToSearchFor.toLowerCase());
-    //occupation.height.toLowerCase() === occupationToSearchFor.toLowerCase());
+        return results;
+    }
     
-    //const traitsToSearchForInt = parseInt(traitsToSearchForString);
-    return traitsSearchResults;
-}
-*/
+    function displayParents(obj, array = []){
+        let subArray = data.parents;
+        array = [obj];
+    
+        //  Base Case -- Terminating Condition (end of branch)
+        if (subArray.length === 0){
+            return array;
+        }
+    
+        //  Recursive Case -- Branch has sub-branches, search continues
+        for (let i = 0; i < subArray.length; i ++) {
+            array = array.concat(
+                recursiveFindParents(subArray[i])
+            );
+        }
+        return array;
+    } 
+    
+    //alert(`${displayPersonFamily}\n\n${formatedPersonDescendantsText}`);
+    /*
+    function displayDescendants(parents, descendants) {
+        results = [];
+        switch (searchTypeChoice) {
+            case 'greatGrandChild':
+                results = searchByGreatGrandChild(parents);
+                break;
+            case 'grandChild':
+                results = searchByGrandChild(parents);
+                break;
+            case 'child':
+                results = searchByChild(parents);
+                break;
+            default:
+                return searchFindPersonDecendants(parents);
+        }
+    
+        return results;
+    }
+    */ 
+
 function mainMenu(person, people) {
 
     const mainMenuUserActionChoice = validatedPrompt(
@@ -135,27 +181,31 @@ function mainMenu(person, people) {
     );
 
     switch (mainMenuUserActionChoice) {
+
         case "info":
-            //! TODO
-            //displayPersonInfo(person);
+            let displayInfo = [data];
+            displayInfo('data');
             break;
+
         case "family":
-           // ! TODO
-            // let personFamily = findPersonFamily(person, people);
-            // displayPeople('Family', personFamily);
+            let displayFamily = [];
+            displayFamily(data.parents && data.currentSpouse);
             break;
+
         case "descendants":
-            //! TODO
-            // let personDescendants = findPersonDescendants(person, people);
-            // displayPeople('Descendants', personDescendants);
+            let displayDescendants = [];
+            displayDescendants(recursiveFindParents);
             break;
+
         case "quit":
             return;
+
         default:
             alert('Invalid input. Please try again.');
-    }
+    
 
     return mainMenu(person, people);
+    }
 }
 
 function displayPeople(displayTitle, peopleToDisplay) {
