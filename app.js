@@ -63,10 +63,7 @@ function searchByName(people) {
     return fullNameSearchResults;
 }
 
-function displayInfo() {
-    let results = ['data'];
-    return results
-}
+
 
 function searchByTraits(people) {
     const traitsToSearchForString = prompt('Please enter the the trait of the person you are searching for.\nAcceptable answers are:\ngender\ndate of birth\nheight\nweight\neye color\noccupation');
@@ -107,71 +104,63 @@ function searchByTraits(people) {
             alert('Invalid input. Please try again.');
     }}
 
-
-    function displayFamily(obj, array = []){
-
-        let personFamily = data.family;
-        array = [obj];
-        switch (searchTypeChoice) {
-            case 'parent':
-                if (data = parents) {
-                    return array;
-                break; 
-                }
-            results = searchByParents(data.parents);
-                break;
-            case 'spouse':
-                if (data = currentSpouse) {
-                    return array;                    
-                }
-                results = searchByCurrentSpouse(data.currentSpouse);
-                break;
-            default:
-                return personFamily(parents, currentSpouse);
+    function displayFamily (person, people){
+        let siblings = [];
+        let spouseResult = person.currentSpouse;
+        let parentsResults = person.parents;
+        for(let i = 0;i<spouseResult.length;i++){
+        let d = spouseResult[i]; {d.name = d.firstName + " "+ d.lastName; fullName + ", ";}; 
         }
-    
-        return results;
+        for(let i = 0;i<parentsResults.length;i++){
+        let p = parentsResults[i]; {p.name = p.firstName + " "+ p.lastName; fullName + ", ";};
+        }
+        for(let i = 0;i<siblings.length;i++){
+        let s = siblings[i]; {s.name = s.firstName + " "+ s.lastName; fullName + ", ";};
+        }
+       // alert(`${displayFamily}`);
+        return family;
     }
     
-    function displayParents(obj, array = []){
-        let subArray = data.parents;
+    function displayParents(obj, array = []) {
+        let subArray = person.parents;
         array = [obj];
-    
+        
         //  Base Case -- Terminating Condition (end of branch)
         if (subArray.length === 0){
             return array;
         }
-    
+        
         //  Recursive Case -- Branch has sub-branches, search continues
         for (let i = 0; i < subArray.length; i ++) {
             array = array.concat(
                 recursiveFindParents(subArray[i])
-            );
-        }
+                );
+            }
+           // alert(`${displayParents}`);
         return array;
     } 
     
-    //alert(`${displayPersonFamily}\n\n${formatedPersonDescendantsText}`);
-    /*
-    function displayDescendants(parents, descendants) {
+    
+    
+    function displayDescendants(person, people) {
         results = [];
-        switch (searchTypeChoice) {
+        switch (person, people) {
             case 'greatGrandChild':
-                results = searchByGreatGrandChild(parents);
+                results = searchByGreatGrandChild(person, people);
                 break;
             case 'grandChild':
-                results = searchByGrandChild(parents);
+                results = searchByGrandChild(person, people);
                 break;
             case 'child':
-                results = searchByChild(parents);
+                results = searchByChild(person, people);
                 break;
             default:
-                return searchFindPersonDecendants(parents);
+                return searchFindPersonDecendants(person, people);
         }
     
         return results;
     }
-    */ 
+    
 
 function mainMenu(person, people) {
 
@@ -183,13 +172,15 @@ function mainMenu(person, people) {
     switch (mainMenuUserActionChoice) {
 
         case "info":
-            let displayInfo = [data];
-            displayInfo('data');
+            let allinfo = ""; 
+            for (let x in person) {
+            allinfo += x + ": " + person[x] + "\n";};
+            alert(allinfo);
             break;
 
         case "family":
-            let displayFamily = [];
-            displayFamily(data.parents && data.currentSpouse);
+            let familySearch = (person, people);
+            alert(familySearch);
             break;
 
         case "descendants":
@@ -207,6 +198,8 @@ function mainMenu(person, people) {
     return mainMenu(person, people);
     }
 }
+
+
 
 function displayPeople(displayTitle, peopleToDisplay) {
     const formatedPeopleDisplayText = peopleToDisplay.map(person => `${person.firstName} ${person.lastName}`).join('\n');
