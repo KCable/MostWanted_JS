@@ -63,8 +63,6 @@ function searchByName(people) {
     return fullNameSearchResults;
 }
 
-
-
 function searchByTraits(people) {
     const traitsToSearchForString = prompt('Please enter the the trait of the person you are searching for.\nAcceptable answers are:\ngender\ndate of birth\nheight\nweight\neye color\noccupation');
     switch (traitsToSearchForString) {
@@ -98,30 +96,34 @@ function searchByTraits(people) {
             const occupationToSearchForString = prompt('Please enter the the occupation of the person you are searching for.\nAcceptable answers are:\ndoctor\nassistant\npolitician\nnurse\nlandscaper\nprogrammer\narchitect\nstudent ');
             traitsSearchResults = people.filter(person => (person.occupation.toLowerCase() === occupationToSearchForString.toLowerCase()));
             return traitsSearchResults;
-        
             
         default:
             alert('Invalid input. Please try again.');
     }}
 
-    function displayFamily (person, people){
-        let siblings = [];
+    function displayFamily (person){
+        
         let spouseResult = person.currentSpouse;
         let parentsResults = person.parents;
-        for(let i = 0;i<spouseResult.length;i++){
-        let d = spouseResult[i]; {d.name = d.firstName + " "+ d.lastName; fullName + ", ";}; 
+        let siblings = [];
+    
+        for(let i = 0; i < spouseResult.length; i++){
+        let d = spouseResult[i]; `Person: ${person.firstName} ${person.lastName} + ", ";};`;
         }
-        for(let i = 0;i<parentsResults.length;i++){
-        let p = parentsResults[i]; {p.name = p.firstName + " "+ p.lastName; fullName + ", ";};
+        for(let i = 0; i < parentsResults.length; i++){
+        let p = parentsResults[i]; `Person: ${person.firstName} ${person.lastName} + ", ";};`;
         }
-        for(let i = 0;i<siblings.length;i++){
-        let s = siblings[i]; {s.name = s.firstName + " "+ s.lastName; fullName + ", ";};
+        for(let i = 0; i < siblings.length; i++){
+        let s = siblings[i]; `Person: ${person.firstName} ${person.lastName} + ", ";};`;
         }
-       // alert(`${displayFamily}`);
-        return family;
+        
+
+        return results
     }
     
+  
     function displayParents(obj, array = []) {
+        displayParents = descendants;
         let subArray = person.parents;
         array = [obj];
         
@@ -136,56 +138,35 @@ function searchByTraits(people) {
                 recursiveFindParents(subArray[i])
                 );
             }
-           // alert(`${displayParents}`);
+           
         return array;
     } 
-    
-    
-    
-    function displayDescendants(person, people) {
-        results = [];
-        switch (person, people) {
-            case 'greatGrandChild':
-                results = searchByGreatGrandChild(person, people);
-                break;
-            case 'grandChild':
-                results = searchByGrandChild(person, people);
-                break;
-            case 'child':
-                results = searchByChild(person, people);
-                break;
-            default:
-                return searchFindPersonDecendants(person, people);
-        }
-    
-        return results;
-    }
-    
-
+ 
 function mainMenu(person, people) {
 
     const mainMenuUserActionChoice = validatedPrompt(
         `Person: ${person.firstName} ${person.lastName}\n\nDo you want to know their full information, family, or descendants?`,
         ['info', 'family', 'descendants', 'quit']
     );
-
+    
+    let results = [];
     switch (mainMenuUserActionChoice) {
-
         case "info":
             let allinfo = ""; 
             for (let x in person) {
             allinfo += x + ": " + person[x] + "\n";};
-            alert(allinfo);
+            alert();allinfo
             break;
 
         case "family":
-            let familySearch = (person, people);
-            alert(familySearch);
+            let displayFamily = (person, people);
+            alert();displayFamily
             break;
 
         case "descendants":
-            let displayDescendants = [];
-            displayDescendants(recursiveFindParents);
+            let descendants= [];
+            descendants = (person)
+            alert(descendants.length);
             break;
 
         case "quit":
@@ -195,7 +176,7 @@ function mainMenu(person, people) {
             alert('Invalid input. Please try again.');
     
 
-    return mainMenu(person, people);
+    return results;
     }
 }
 
